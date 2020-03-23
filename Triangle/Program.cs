@@ -5,146 +5,111 @@ namespace Triangle
     class triangle
     {
         //необходимые данные;
-        public double[] pointXA = new double[3];
-        public double[] pointYA = new double[3];
-        public double[] pointXB = new double[3];
-        public double[] pointYB = new double[3];
-        public double[] pointXC = new double[3];
-        public double[] pointYC = new double[3];
-        public double[] sideAB = new double[3];
-        public double[] sideBC = new double[3];
-        public double[] sideAC = new double[3];
-       
-        public void Input ()
-        {
-            int size = 3;
+        public double pointXA, pointYA, pointXB, pointYB;
+        public double pointXC, pointYC;
+        public double sideAB, sideBC, sideAC;
 
-            Console.WriteLine("У вас есть 3 треугольника, введите координаты их точек: ");
-           
-            double[] arr = new double[size];
-
-            for(int i = 0; i < arr.Length; i++)
-            {
-                int Correct = 0;
-                do
-                {
-                    Console.WriteLine();
-                    Console.Write($"Введите координату X {i + 1} треугольника для угла А: ");
-                    pointXA[i] = Convert.ToInt32(Console.ReadLine());
-
-                    Console.WriteLine();
-                    Console.Write($"Введите координату Y {i + 1} треугольника для угла А: ");
-                    pointYA[i] = Convert.ToInt32(Console.ReadLine());
-
-                    Console.WriteLine();
-                    Console.Write($"Введите координату X {i + 1} треугольника для угла B: ");
-                    pointXB[i] = Convert.ToInt32(Console.ReadLine());
-
-                    Console.WriteLine();
-                    Console.Write($"Введите координату Y {i + 1} треугольника для угла B: ");
-                    pointYB[i] = Convert.ToInt32(Console.ReadLine());
-
-                    Console.WriteLine();
-                    Console.Write($"Введите координату X {i + 1} треугольника для угла C: ");
-                    pointXC[i] = Convert.ToInt32(Console.ReadLine());
-
-                    Console.WriteLine();
-                    Console.Write($"Введите координату Y {i + 1} треугольника для угла C: ");
-                    pointYC[i] = Convert.ToInt32(Console.ReadLine());
-
-                    //находим длины сторон по углам;
-                    double A = pointXB[i] - pointXA[i];
-                    double B = pointYB[i] - pointYA[i];
-                    double B1 = pointXC[i] = pointXB[i];
-                    double C = pointYC[i] - pointYB[i];
-                    double A1 = pointXC[i] - pointXA[i];
-                    double C1 = pointYC[i] - pointYA[i];
-                    sideAB[i] = Math.Sqrt(Math.Pow(A, 2) + Math.Pow(B, 2));
-                    sideBC[i] = Math.Sqrt(Math.Pow(B1, 2) + Math.Pow(C, 2));
-                    sideAC[i] = Math.Sqrt(Math.Pow(A1, 2) + Math.Pow(C1, 2));
-
-                    //проверяем условия существования треугольника;
-                    //сумма двух меньших сторон должна быть больше чем большая сторона;
-                    if (sideAB[i] > sideBC[i] & sideAB[i] > sideAC[i] & sideBC[i] + sideAC[i] > sideAB[i])
-                    {
-                        Correct++;
-                    }
-
-                    else if (sideBC[i] > sideAB[i] & sideBC[i] > sideAC[i] & sideAB[i] + sideAC[i] > sideBC[i])
-                    {
-                        Correct++;
-                    }
-
-                    else if (sideAC[i] > sideAB[i] & sideAC[i] > sideBC[i] & sideAB[i] + sideBC[i] > sideAC[i])
-                    {
-                        Correct++;
-                    }
-
-                    //если условие выполняется - треугольник либо равнобедренный, либо равносторонний;
-                    //для этого требуется равенство двух сторон либо всех трех;
-                    else if (sideAB[i] == sideBC[i] | sideAB[i] == sideAC[i] | sideBC[i] == sideAB[i] | (sideAB[i] == sideBC[i] & sideAB[i] == sideAC[i]))
-                    {
-                        Correct++;
-                    }
-
-                    else
-                    {
-                        Console.WriteLine();
-                        Console.WriteLine("Треугольник с такой длинной сторон невозможен, введите заново");
-                    }
-
-                } while (Correct == 0);
-            }
-
-            Measurements(size, arr);
-        }
-
-        public double[] area = new double[3];
-        public double[] perimeter = new double[3];
-        public double[] half_perimeter = new double[3];
-        public double[] angleA = new double[3];
-        public double[] angleB = new double[3];
-        public double[] angleC = new double[3];
+        public double area, perimeter, half_perimeter;
+        public double angleA, angleB, angleC;
         public int count = 0;
 
-        public void Measurements(int size, double[] arr)
+        public void Measurements(int size, triangle[] arr)
         {
             //находим периметр, площадь и углы;
             for(int i = 0; i < arr.Length; i++)
             {
-                perimeter[i] = sideAB[i] + sideBC[i] + sideAC[i];
+                arr[i].perimeter = arr[i].sideAB + arr[i].sideBC + arr[i].sideAC;
 
                 //находим полупериметр для площади;
-                half_perimeter[i] = (sideAB[i] + sideBC[i] + sideAC[i]) / 2;
+                arr[i].half_perimeter = (arr[i].sideAB + arr[i].sideBC + arr[i].sideAC) / 2;
 
                 //формула Герона для нахождения площади;
-                area[i] = Math.Abs(Math.Sqrt(half_perimeter[i] * (half_perimeter[i] - sideAB[i]) * (half_perimeter[i] - sideBC[i]) * (half_perimeter[i] - sideAC[i])));
+                arr[i].area = Math.Sqrt(arr[i].half_perimeter * (arr[i].half_perimeter - arr[i].sideAB) * (arr[i].half_perimeter - arr[i].sideBC) * (arr[i].half_perimeter - arr[i].sideAC));
+                arr[i].area = Math.Abs(arr[i].area);
 
                 //находим углы;
-                angleA[i] = (Math.Pow(sideAB[i], 2) + Math.Pow(sideAC[i], 2) - Math.Pow(sideBC[i], 2)) / (2 * sideAB[i] * sideAC[i]);
-                angleA[i] = Math.Cos(angleA[i]);
+                arr[i].angleA = (arr[i].sideAB * arr[i].sideAB + arr[i].sideAC * arr[i].sideAC - arr[i].sideBC * arr[i].sideBC) / (2 * arr[i].sideAB * arr[i].sideAC) * 180 / Math.PI;
+                arr[i].angleA = Math.Abs(arr[i].angleA);
 
-                angleB[i] = (Math.Pow(sideAB[i], 2) + Math.Pow(sideBC[i], 2) - Math.Pow(sideAC[i], 2)) / (2 * sideAB[i] * sideBC[i]);
-                angleB[i] = Math.Cos(angleB[i]);
+                arr[i].angleB = (arr[i].sideAB * arr[i].sideAB + arr[i].sideBC * arr[i].sideBC - arr[i].sideAC * arr[i].sideAC) / (2 * arr[i].sideAB * arr[i].sideBC) * 180 / Math.PI;
+                arr[i].angleB = Math.Abs(arr[i].angleB);
 
-                angleC[i] = 180 - (angleA[i] + angleB[i]);
+                arr[i].angleC = 180 - (arr[i].angleA + arr[i].angleB);
+            }
+
+            Console.WriteLine();
+
+            Similarity(size, arr);
+        }
+        
+        public void Similarity(int size, triangle[] arr)
+        {
+            if (size > 1)
+            {
+                int count2 = 0;
+                Console.Write("Подобными треугольниками являются: ");
+
+                //находим подобные треугольники;
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    for (int j = 1; j < arr.Length; j++)
+                    {
+
+                        //проверка по трем сторонам;
+                        if (arr[i].sideAB > arr[j].sideAB && arr[i].sideBC > arr[j].sideBC && arr[i].sideAC > arr[j].sideAC && i != j)
+                        {
+                            double difference = arr[i].sideAB - arr[j].sideAB, a = arr[i].sideAB / difference, a1 = arr[j].sideAB / difference;
+                            double difference1 = arr[i].sideBC - arr[j].sideBC, b = arr[i].sideBC / difference1, b1 = arr[j].sideBC / difference1;
+                            double difference2 = arr[i].sideAC - arr[j].sideAC, c = arr[i].sideAC / difference2, c1 = arr[j].sideAC / difference2;
+                            if (a == (int)a && a1 == (int)a1 && b == (int)b && b1 == (int)b1 && c == (int)c && c1 == (int)c1)
+                            {
+                                Console.Write($"{i} и {j} ; ");
+                                count2++;
+                            }
+                        }
+
+                        if (arr[i].sideAB < arr[j].sideAB && arr[i].sideBC < arr[j].sideBC && arr[i].sideAC < arr[j].sideAC && i != j)
+                        {
+                            double difference = arr[j].sideAB - arr[i].sideAB, a = arr[i].sideAB / difference, a1 = arr[j].sideAB / difference;
+                            double difference1 = arr[j].sideBC - arr[i].sideBC, b = arr[i].sideBC / difference1, b1 = arr[j].sideBC / difference1;
+                            double difference2 = arr[j].sideAC - arr[i].sideAC, c = arr[i].sideAC / difference2, c1 = arr[j].sideAC / difference2;
+                            if (a == (int)a && a1 == (int)a1 && b == (int)b && b1 == (int)b1 && c == (int)c && c1 == (int)c1)
+                            {
+                                Console.Write($"{i} и {j} ; ");
+                                count2++;
+                            }
+                        }
+
+                        if (count2 == 0 && i == arr.Length - 1 && j == arr.Length - 1)
+                        {
+                            Console.Write("нет подобных треугольников");
+                        }
+                    }
+                }
+            }
+
+            else
+            {
+                Console.WriteLine("Так как треугольник всего 1 подобных ему существовать не может");
             }
 
             Console.WriteLine();
 
             Output(size, arr);
-        }   
+        }
 
-        public void Output(int size, double[] arr)
+        public void Output(int size, triangle[] arr)
         {
+            Console.WriteLine();
+
             for(int i = 0; i < arr.Length; i++)
             {
                 int max_area = 0;
 
                 //находим равнобедренный треугольние с максимальной площадью;
-                if(sideAB[i] == sideBC[i] | sideAB[i] == sideAC[i] | sideBC[i] == sideAB[i])
+                if((arr[i].sideAB == arr[i].sideBC) || (arr[i].sideAB == arr[i].sideAC) || (arr[i].sideBC == arr[i].sideAC))
                 {
-                    if(area[i] > area[max_area])
+                    if(arr[i].area > arr[max_area].area)
                     {
                         max_area = i;
                     }
@@ -152,13 +117,14 @@ namespace Triangle
                     count++;
                 }
 
-                if (i == arr.Length - 1 & count > 0)
+                if ((i == arr.Length - 1) && (count > 0))
                 {
-                    Console.WriteLine($"Найбольшая площадь у равнобедренного треугольника под номером {max_area + 1}: " + area[max_area]);
+                    Console.WriteLine($"Всего равнобедренных треугольников: {count}");
+                    Console.WriteLine($"Найбольшая площадь у равнобедренного треугольника под номером {max_area + 1}: " + arr[max_area].area);
                     Console.WriteLine();
                 }
 
-                else if(i == size - 1 & count == 0)
+                if ((i == size - 1) && (count == 0))
                 {
                     Console.WriteLine("Равнобедренного треугольника среди данных не существует");
                     Console.WriteLine();
@@ -169,9 +135,9 @@ namespace Triangle
             for(int i = 0; i < arr.Length; i++)
             {
                 Console.WriteLine($"Треугольник под номером {i + 1}");
-                Console.WriteLine($"Сторона АB = {sideAB[i]}, BC = {sideBC[i]}, AC = {sideAC[i]}");
-                Console.WriteLine($"Площадь = {area[i]}, Периметр = {perimeter[i]}");
-                Console.WriteLine($"Угол А = {angleA[i]}, B = {angleB[i]}, C = {angleC[i]}");
+                Console.WriteLine($"Сторона АB = {arr[i].sideAB}, BC = {arr[i].sideBC}, AC = {arr[i].sideAC}");
+                Console.WriteLine($"Площадь = {arr[i].area}, Периметр = {arr[i].perimeter}");
+                Console.WriteLine($"Угол А = {arr[i].angleA}, B = {arr[i].angleB}, C = {arr[i].angleC}");
                 Console.WriteLine();
             }
         }
@@ -181,13 +147,116 @@ namespace Triangle
     {
         static void Main(string[] args)
         {
+            int size;
 
-            //вызываем функцию для ввода координат;
+            Console.Write("Введите количество треугольников, данные которых вы хотите ввести: ");
+
+            size = Convert.ToInt32(Console.ReadLine());
+
+            triangle[] arr = new triangle[size];
+
             triangle number = new triangle();
-            number.Input();
 
+            int count1;
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                do
+                {
+                    count1 = 0;
+
+                    arr[i] = new triangle();
+
+                    //вводим координаты точек;
+                    Console.WriteLine();
+                    Console.Write($"Введите координату X {i + 1} треугольника для угла А: ");
+                    arr[i].pointXA = Convert.ToDouble(Console.ReadLine());
+
+                    Console.WriteLine();
+                    Console.Write($"Введите координату Y {i + 1} треугольника для угла А: ");
+                    arr[i].pointYA = Convert.ToDouble(Console.ReadLine());
+
+                    //циклы для проверки ввода координат - координаты точек не могут совпадать
+                    do {
+                        Console.WriteLine();
+                        Console.Write($"Введите координату X {i + 1} треугольника для угла B: ");
+                        arr[i].pointXB = Convert.ToDouble(Console.ReadLine());
+                    } while (arr[i].pointXB == arr[i].pointXA);
+
+                    do {
+                        Console.WriteLine();
+                        Console.Write($"Введите координату Y {i + 1} треугольника для угла B: ");
+                        arr[i].pointYB = Convert.ToDouble(Console.ReadLine());
+                    } while (arr[i].pointYB == arr[i].pointYA);
+
+                    do
+                    {
+                        do
+                        {
+                            Console.WriteLine();
+                            Console.Write($"Введите координату X {i + 1} треугольника для угла C: ");
+                            arr[i].pointXC = Convert.ToDouble(Console.ReadLine());
+                        } while (arr[i].pointXC == arr[i].pointXA);
+                    } while (arr[i].pointXC == arr[i].pointXB);
+
+                    do {
+                        do {
+                            Console.WriteLine();
+                            Console.Write($"Введите координату Y {i + 1} треугольника для угла C: ");
+                            arr[i].pointYC = Convert.ToDouble(Console.ReadLine());
+                        } while (arr[i].pointYC == arr[i].pointYA);
+                    } while (arr[i].pointYC == arr[i].pointYB);
+
+                    //находим длины сторон по углам;
+                    double A = arr[i].pointXB - arr[i].pointXA;
+                    double B = arr[i].pointYB - arr[i].pointYA;
+                    double B1 = arr[i].pointXC - arr[i].pointXB;
+                    double C = arr[i].pointYC - arr[i].pointYB;
+                    double A1 = arr[i].pointXC - arr[i].pointXA;
+                    double C1 = arr[i].pointYC - arr[i].pointYA;
+
+                    arr[i].sideAB = Math.Sqrt(A * A + B * B);
+                    arr[i].sideAB = Math.Abs(arr[i].sideAB);
+                    arr[i].sideBC = Math.Sqrt(B1 * B1 + C * C);
+                    arr[i].sideBC = Math.Abs(arr[i].sideBC);
+                    arr[i].sideAC = Math.Sqrt(A1 * A1 + C1 * C1);
+                    arr[i].sideAC = Math.Abs(arr[i].sideAC);
+
+                    //проверяем условия существования треугольника;
+                    //сумма двух меньших сторон должна быть больше чем большая сторона;
+                    if ((arr[i].sideAB > arr[i].sideBC) && (arr[i].sideAB > arr[i].sideAC) && (arr[i].sideBC + arr[i].sideAC > arr[i].sideAB))
+                    {
+                        count1++;
+                    }
+
+                    if ((arr[i].sideBC > arr[i].sideAB) && (arr[i].sideBC > arr[i].sideAC) && (arr[i].sideAB + arr[i].sideAC > arr[i].sideBC))
+                    {
+                        count1++;
+                    }
+
+                    if ((arr[i].sideAC > arr[i].sideAB) && (arr[i].sideAC > arr[i].sideBC) && (arr[i].sideAB + arr[i].sideBC > arr[i].sideAC))
+                    {
+                        count1++;
+                    }
+
+                    //если условие выполняется - треугольник либо равнобедренный, либо равносторонний;
+                    //для этого требуется равенство двух сторон либо всех трех;
+                    if ((arr[i].sideAB == arr[i].sideBC) || (arr[i].sideBC == arr[i].sideAC) || (arr[i].sideAB == arr[i].sideAC) || ((arr[i].sideAB == arr[i].sideBC) && (arr[i].sideAB == arr[i].sideAC)))
+                    {
+                        count1++;
+                    }
+
+                    if (count1 == 0)
+                    {
+                        Console.WriteLine($"Треугольника с длинной сторон {arr[i].sideAB} , {arr[i].sideBC} , {arr[i].sideAC} не может существовать");
+                    }
+
+                } while (count1 == 0);
+            }
+
+            number.Measurements(size, arr);
+                
             Console.ReadLine();
-
         }
     }
 }
