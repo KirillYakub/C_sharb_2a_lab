@@ -80,6 +80,31 @@ namespace Triangle
                             }
                         }
 
+                        //по 2 углам;
+                        if((arr[i].angleA > arr[j].angleA && arr[i].angleB > arr[j].angleB) || (arr[i].angleB > arr[j].angleB && arr[i].angleC > arr[j].angleC) || (arr[i].angleA > arr[j].angleA && arr[i].angleC > arr[j].angleC))
+                        {
+                            double difference = arr[i].angleA - arr[j].angleA, a = arr[i].angleA/difference, a1 = arr[j].angleA/difference;
+                            double difference1 = arr[i].angleB - arr[j].angleB, b = arr[i].angleB / difference1, b1 = arr[j].angleB / difference1;
+                            double difference2 = arr[i].angleC - arr[j].angleC, c = arr[i].angleC / difference2, c1 = arr[j].angleC / difference2;
+                            if((a == (int)a && a1 ==(int)a1 && b == (int)b && b1 == (int)b1) || (b == (int)b && b1 == (int)b1 && c == (int)c && c1 == (int)c1) || (a == (int)a && a1 == (int)a1 && c == (int)c && c1 == (int)c1))
+                            {
+                                Console.Write($"{i} и {j} ; ");
+                                count2++;
+                            }
+                        }
+
+                        if ((arr[i].angleA < arr[j].angleA && arr[i].angleB < arr[j].angleB) || (arr[i].angleB < arr[j].angleB && arr[i].angleC < arr[j].angleC) || (arr[i].angleA < arr[j].angleA && arr[i].angleC < arr[j].angleC))
+                        {
+                            double difference = arr[j].angleA - arr[i].angleA, a = arr[j].angleA / difference, a1 = arr[i].angleA / difference;
+                            double difference1 = arr[j].angleB - arr[i].angleB, b = arr[j].angleB / difference1, b1 = arr[i].angleB / difference1;
+                            double difference2 = arr[j].angleC - arr[i].angleC, c = arr[j].angleC / difference2, c1 = arr[i].angleC / difference2;
+                            if ((a == (int)a && a1 == (int)a1 && b == (int)b && b1 == (int)b1) || (b == (int)b && b1 == (int)b1 && c == (int)c && c1 == (int)c1) || (a == (int)a && a1 == (int)a1 && c == (int)c && c1 == (int)c1))
+                            {
+                                Console.Write($"{i} и {j} ; ");
+                                count2++;
+                            }
+                        }
+
                         if (count2 == 0 && i == arr.Length - 1 && j == arr.Length - 1)
                         {
                             Console.Write("нет подобных треугольников");
