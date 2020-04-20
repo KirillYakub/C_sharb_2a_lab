@@ -84,17 +84,17 @@ namespace Triangle
                 {
                     arr[i] = new Triangle();
 
-                    arr[i].pointXA = random.Next(-10, 10);
+                    arr[i].pointXA = random.Next(0, 30);
                     pointXA = arr[i].pointXA;
 
-                    arr[i].pointYA = random.Next(-10, 10);
+                    arr[i].pointYA = random.Next(0, 30);
                     pointYA = arr[i].pointYA;
 
                     //циклы для проверки ввода координат - координаты точек не могут совпадать
                     do
                     {
 
-                        arr[i].pointXB = random.Next(-10, 10);
+                        arr[i].pointXB = random.Next(0, 30);
                         pointXB = arr[i].pointXB;
 
                     } while (arr[i].pointXB == arr[i].pointXA);
@@ -102,7 +102,7 @@ namespace Triangle
                     do
                     {
 
-                        arr[i].pointYB = random.Next(-10, 10);
+                        arr[i].pointYB = random.Next(0, 30);
                         pointYB = arr[i].pointYB;
 
                     } while (arr[i].pointYB == arr[i].pointYA);
@@ -110,7 +110,7 @@ namespace Triangle
                     do
                     {
 
-                        arr[i].pointXC = random.Next(-10, 10);
+                        arr[i].pointXC = random.Next(0, 30);
                         pointXC = arr[i].pointXC;
 
                     } while (arr[i].pointXC == arr[i].pointXB || arr[i].pointXC == arr[i].pointXA);
@@ -118,7 +118,7 @@ namespace Triangle
                     do
                     {
 
-                        arr[i].pointYC = random.Next(-10, 10);
+                        arr[i].pointYC = random.Next(0, 30);
                         pointYC = arr[i].pointYC;
 
                     } while (arr[i].pointYC == arr[i].pointYB || arr[i].pointYC == arr[i].pointYA);
